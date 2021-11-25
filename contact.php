@@ -97,9 +97,6 @@
             "Email:\t$visitor_email\n".  
             "Phone:\t$visitor_phone\n".                   
             "Here is the message:\n\n $visitor_message".
-            $headers = "";
-            $headers .= "Reply-To: $visitor_email \r\n";
-            $headers .= "Bcc: someoneelse@domain.com \r\n";
 
             $mail = new PHPMailer(true);
 
@@ -124,6 +121,7 @@
                 $mail->setFrom($email);
                 $mail->addAddress($email);     //Add a recipient
                 $mail->addBCC($email_bcc);
+                $mail->header("Reply-To: $visitor_email \r\n")
 
                 //Content
                 $mail->isHTML(false);                                  //Set email format to HTML
@@ -133,7 +131,7 @@
                 $mail->send();
                 echo "<br/>Thank you, ", $name, ". We will be in touch shortly.";
             } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: \n{$mail->ErrorInfo}";
+                echo "Message could not be sent. Mailer Error: \n{$mail->ErrorInfo}\n{$e}";
             }
           }
         ?>
