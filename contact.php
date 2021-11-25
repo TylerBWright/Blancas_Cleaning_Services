@@ -93,12 +93,12 @@
             $email_to = 'blanca@blancascleaning.com';
             $email_subject = "New Message";
             $email_body = "You have received a new message from the user $name.\n\n".
-            "Name:\t$name\n".
-            "Email:\t$visitor_email\n".  
-            "Phone:\t$visitor_phone\n".                   
-            "Here is the message:\n\n $visitor_message".
+              "Name:\t$name\n".
+              "Email:\t$visitor_email\n".  
+              "Phone:\t$visitor_phone\n".                   
+              "Here is the message:\n\n $visitor_message";
 
-            $mail = new PHPMailer(true);
+            $mailer = new PHPMailer(true);
 
             try {
                 $host = getenv("HOST");
@@ -108,30 +108,29 @@
                 $password = getenv("PASSWORD");
 
                 //Server settings
-                $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
-                $mail->isSMTP();                                            //Send using SMTP
-                $mail->Host       = $host;                     //Set the SMTP server to send through
-                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->Username   = $email;                     //SMTP username
-                $mail->Password   = $password;                               //SMTP password
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                $mail->Port       = $port;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                $mailer->SMTPDebug = SMTP::DEBUG_SERVER;  
+                $mailer->isSMTP();                                            //Send using SMTP
+                $mailer->Host       = $host;                     //Set the SMTP server to send through
+                $mailer->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mailer->Username   = $email;                     //SMTP username
+                $mailer->Password   = $password;                               //SMTP password
+                $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mailer->Port       = $port;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
-                $mail->setFrom($email);
-                $mail->addAddress($email);     //Add a recipient
-                $mail->addBCC($email_bcc);
-                $mail->header("Reply-To: $visitor_email \r\n");
+                $mailer->setFrom($email);
+                $mailer->addAddress($email);     //Add a recipient
+                $mailer->addBCC($email_bcc);
 
                 //Content
-                $mail->isHTML(false);                                  //Set email format to HTML
-                $mail->Subject = $email_subject;
-                $mail->Body    = $email_body;
+                $mailer->isHTML(false);                                  //Set email format to HTML
+                $mailer->Subject = $email_subject;
+                $mailer->Body    = $email_body;
 
-                $mail->send();
+                $mailer->send();
                 echo "<br/>Thank you, ", $name, ". We will be in touch shortly.";
             } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: \n{$mail->ErrorInfo}";
+                echo "Message could not be sent. Mailer Error: \n{$mailer->ErrorInfo}";
             }
           }
         ?>
