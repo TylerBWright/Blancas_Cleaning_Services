@@ -114,25 +114,21 @@
 
             try {
                 $host = getenv("HOST");
-                $port = getenv("PORT");
                 $email = getenv("EMAIL");
                 $email_bcc = getenv("EMAIL_BCC");
                 $password = getenv("PASSWORD");
 
-                echo $host;
-                echo $port;
-
                 //Server settings
-                $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
                 $mail->isSMTP();                                            //Send using SMTP
                 $mail->Host       = $host;                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
                 $mail->Username   = $email;                     //SMTP username
                 $mail->Password   = $password;                               //SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                $mail->Port       = $port;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
+                $mail->addReplyTo($visitor_email);
                 $mail->setFrom($email);
                 $mail->addAddress($email);     //Add a recipient
                 $mail->addBCC($email_bcc);
@@ -145,7 +141,7 @@
                 $mail->send();
                 echo "<br/>Thank you, ", $name, ". We will be in touch shortly.";
             } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: \n{$mail->ErrorInfo}";
+                echo "<br/>Message could not be sent.";
             }
           }
         ?>
