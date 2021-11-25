@@ -121,7 +121,7 @@
                 $mail->setFrom($email);
                 $mail->addAddress($email);     //Add a recipient
                 $mail->addBCC($email_bcc);
-                $mail->header("Reply-To: $visitor_email \r\n")
+                $mail->header("Reply-To: $visitor_email \r\n");
 
                 //Content
                 $mail->isHTML(false);                                  //Set email format to HTML
