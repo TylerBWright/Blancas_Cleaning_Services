@@ -107,8 +107,8 @@
                 $email_bcc = getenv("EMAIL_BCC");
                 $password = getenv("PASSWORD");
 
-                echo "Host", $host, "\n";
-                echo "Port", $port, "\n";
+                echo "Host", $host, "<br/>";
+                echo "Port", $port, "<br/>";
 
                 //Server settings
                 $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
@@ -118,7 +118,7 @@
                 $mail->Username   = $email;                     //SMTP username
                 $mail->Password   = $password;                               //SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                $mail->Port       = $port;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
                 $mail->setFrom($email);
