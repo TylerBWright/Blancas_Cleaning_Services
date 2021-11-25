@@ -107,8 +107,8 @@
                 $email_bcc = getenv("EMAIL_BCC");
                 $password = getenv("PASSWORD");
 
-                echo $host;
-                echo $port;
+                echo "Host", $host, "\n";
+                echo "Port", $port, "\n";
 
                 //Server settings
                 $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
