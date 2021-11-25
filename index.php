@@ -110,7 +110,7 @@
               "Phone:\t$visitor_phone\n".                   
               "Here is the message:\n\n $visitor_message";
 
-            $mailer = new PHPMailer(true);
+            $mail = new PHPMailer(true);
 
             try {
                 $host = getenv("HOST");
@@ -123,29 +123,29 @@
                 echo $port;
 
                 //Server settings
-                $mailer->SMTPDebug = SMTP::DEBUG_SERVER;  
-                $mailer->isSMTP();                                            //Send using SMTP
-                $mailer->Host       = $host;                     //Set the SMTP server to send through
-                $mailer->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mailer->Username   = $email;                     //SMTP username
-                $mailer->Password   = $password;                               //SMTP password
-                $mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                $mailer->Port       = $port;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = $host;                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = $email;                     //SMTP username
+                $mail->Password   = $password;                               //SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Port       = $port;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
-                $mailer->setFrom($email);
-                $mailer->addAddress($email);     //Add a recipient
-                $mailer->addBCC($email_bcc);
+                $mail->setFrom($email);
+                $mail->addAddress($email);     //Add a recipient
+                $mail->addBCC($email_bcc);
 
                 //Content
-                $mailer->isHTML(false);                                  //Set email format to HTML
-                $mailer->Subject = $email_subject;
-                $mailer->Body    = $email_body;
+                $mail->isHTML(false);                                  //Set email format to HTML
+                $mail->Subject = $email_subject;
+                $mail->Body    = $email_body;
 
-                $mailer->send();
+                $mail->send();
                 echo "<br/>Thank you, ", $name, ". We will be in touch shortly.";
             } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: \n{$mailer->ErrorInfo}";
+                echo "Message could not be sent. Mailer Error: \n{$mail->ErrorInfo}";
             }
           }
         ?>
