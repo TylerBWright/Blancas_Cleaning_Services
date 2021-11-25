@@ -132,7 +132,7 @@
                 $mail->send();
                 echo "<br/>Thank you, ", $name, ". We will be in touch shortly.";
             } catch (Exception $e) {
-                echo "Message could not be sent.";
+                echo "Message could not be sent. Mailer Error: \n{$mail->ErrorInfo}";
             }
           }
         ?>
