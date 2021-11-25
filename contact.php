@@ -111,6 +111,7 @@
                 $password = getenv("PASSWORD");
 
                 //Server settings
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
                 $mail->isSMTP();                                            //Send using SMTP
                 $mail->Host       = $host;                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
