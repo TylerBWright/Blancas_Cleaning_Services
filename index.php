@@ -119,6 +119,9 @@
                 $email_bcc = getenv("EMAIL_BCC");
                 $password = getenv("PASSWORD");
 
+                echo $host
+                echo $port
+
                 //Server settings
                 $mail->SMTPDebug = SMTP::DEBUG_SERVER;  
                 $mail->isSMTP();                                            //Send using SMTP
